@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="manifest" href="manifest.json" />
+  </head>
+  <body>
+    <h1>Push notification</h1>
+  </body>
+  <!-- The core Firebase JS SDK is always required and must be listed first -->
+  <script src="https://www.gstatic.com/firebasejs/5.5.8/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.5.8/firebase-messaging.js"></script>
+
+  <script>
+    // Your web app's Firebase configuration
+    var firebaseConfig = {
+      apiKey: "AIzaSyDC0CFNtSUECU4s8CTXNxJFu1acTJ3ogWk",
+      authDomain: "chula-264509.firebaseapp.com",
+      databaseURL: "https://chula-264509.firebaseio.com",
+      projectId: "chula-264509",
+      storageBucket: "chula-264509.appspot.com",
+      messagingSenderId: "421428305876",
+      appId: "1:421428305876:web:6d504a6caf71c1c85e8041",
+      measurementId: "G-GHR0181X2F"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+
+    const messaging = firebase.messaging();
+    messaging
+      .requestPermission()
+      .then(async () => {
+        console.log("Notification permission granted");
+        await getResgisterToken();
+      })
+      .catch(error => {
+        console.log("error", error);
+      });
+
+    async function getResgisterToken() {
+      try {
+        const token = await messaging.getToken();
+        console.log(token);
+        // sendTokenToServer(currentToken);
+      } catch (error) {
+        // setTokenSentToServer(false);
+        throw error;
+      }
+    }
+  </script>
+</html>
